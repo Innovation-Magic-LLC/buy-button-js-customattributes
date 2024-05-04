@@ -10,6 +10,11 @@ This repository contains a modified version of the Shopify Buy Button library th
 - Attributes are visible to customers during the checkout process
 - Attributes are accessible in the Shopify admin panel and through webhooks as metadata
 
+<p style="width: 40%">          
+<img src="docs/assets/images/customAttributes_1.png">
+<img src="docs/assets/images/customAttributes_2.png">
+    </p>
+
 ## Limitations
 
 - Custom attributes are not displayed in the cart before checkout, which may cause confusion for customers with bulk orders. However, this should not be an issue for small orders.
