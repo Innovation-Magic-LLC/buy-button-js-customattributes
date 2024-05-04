@@ -1,6 +1,6 @@
 # BuyButton.js with custom attributes
 
-~ For custom engineering Solutions, please contact our firm [get-magic.com](https://get-magic.com) ~
+~ For custom engineering solutions, please contact our firm [get-magic.com](https://get-magic.com) ~
 
 This repository contains a modified version of the Shopify Buy Button library that allows developers to add custom attributes to product line items. While the default Buy Button library does not support this functionality, our implementation enables sending additional data from external applications to Shopify, facilitating the creation of custom retail functionality.
 
