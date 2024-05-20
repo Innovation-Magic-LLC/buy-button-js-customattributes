@@ -16306,22 +16306,24 @@ var ShopifyBuy = (function () {
             data.variantTitle = data.variant.title === 'Default Title' ? '' : data.variant.title;
   
             {
+              // This block overrides the existing variant title to show custom attributes.
               var lineItems = _this10.lineItemCache || [];
-              var recipeValue = '';
+              var customItemSubTitle = '';
               var lineValues = '';
   
               for (var attribute of lineItem.customAttributes) {
-                const lowercaseKey = attribute.key.toLowerCase();
-                if (lowercaseKey === 'customProduct') {
-                  recipeValue = attribute.value;
+                var lowercaseKey = attribute.key.toLowerCase();
+  
+                if (lowercaseKey === 'recipe') {
+                  customItemSubTitle = attribute.value;
                 } else if (lowercaseKey.startsWith('line')) {
                   lineValues += "".concat(attribute.value, ", ");
-                }          
-              }    
+                }
+              }
   
-              if(lineValues.length > 0){
-                recipeValue = recipeValue + ': ' + lineValues;
-                data.variantTitle = recipeValue ? recipeValue : '';
+              if (lineValues.length > 0) {
+                customItemSubTitle = customItemSubTitle + ': ' + lineValues;
+                data.variantTitle = customItemSubTitle;
               }
             }
   
