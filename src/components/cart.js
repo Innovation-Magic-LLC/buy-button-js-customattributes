@@ -127,7 +127,7 @@ export default class Cart extends Component {
 
         for (var attribute of lineItem.customAttributes) {
           const lowercaseKey = attribute.key.toLowerCase();
-          if (lowercaseKey === 'recipe') {
+          if (lowercaseKey === 'customProduct') {
             customItemSubTitle = attribute.value;
           } else if (lowercaseKey.startsWith('line')) {
             lineValues += "".concat(attribute.value, ", ");
