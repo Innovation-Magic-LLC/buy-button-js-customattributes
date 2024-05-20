@@ -118,28 +118,26 @@ export default class Cart extends Component {
       data.lineItemImage = this.imageForLineItem(data);
       data.variantTitle = data.variant.title === 'Default Title' ? '' : data.variant.title;
 
-      const renderCustumAtrributesInCart = true;
-      
-      if(renderCustumAtrributesInCart){
+      {
+        // This block overrides the existing variant title to show custom attributes.
         const lineItems = this.lineItemCache || [];
       
-        let recipeValue = '';
+        let customItemSubTitle = '';
         let lineValues = '';
 
-        for (var lineItem of lineItems) {
-          for (var attribute of lineItem.customAttributes) {
-            const lowercaseKey = attribute.key.toLowerCase();
-            if (lowercaseKey === 'recipe') {
-              recipeValue = attribute.value;
-            } else if (lowercaseKey.startsWith('line')) {
-              lineValues += "".concat(attribute.value, ", ");
-            }          
-          }
+        for (var attribute of lineItem.customAttributes) {
+          const lowercaseKey = attribute.key.toLowerCase();
+          if (lowercaseKey === 'recipe') {
+            customItemSubTitle = attribute.value;
+          } else if (lowercaseKey.startsWith('line')) {
+            lineValues += "".concat(attribute.value, ", ");
+          }          
         }
 
-        recipeValue = recipeValue + ': ' + lineValues;
-
-        data.variantTitle = recipeValue ? recipeValue : '';
+        if(lineValues.length > 0){
+          customItemSubTitle = customItemSubTitle + ': ' + lineValues;
+          data.variantTitle = customItemSubTitle;
+        }
   
       }
 
