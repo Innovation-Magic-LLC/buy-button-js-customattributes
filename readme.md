@@ -17,9 +17,11 @@ This repository contains a modified version of the Shopify Buy Button library th
 
 ## Limitations
 
-- Custom attributes are not displayed in the cart before checkout, which may cause confusion for customers with bulk orders. However, this should not be an issue for small orders.
+- ~~Custom attributes are not displayed in the cart before checkout~~ 
+    - Please refer to features/renderCustomAtrributesInCart branch to see how to modify the code to render custom attributes using the existing variantTitle in the template.
+    - This code is checked into main, currently.
 - mocha test framework is purged
-- After compiling the library, you will need to manually merge your bits with the live shopify bits. We have provided our compiled minified version in ./latest folder.
+- After compiling the library, you will need to manually merge your bits with the live shopify bits. We have provided our compiled version in ./latest folder.
 ## Usage
 
 This project is shared for educational purposes and is provided without warranty under the MIT license. 
