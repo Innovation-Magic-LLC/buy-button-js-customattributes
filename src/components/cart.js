@@ -117,6 +117,32 @@ export default class Cart extends Component {
       data.text = this.config.lineItem.text;
       data.lineItemImage = this.imageForLineItem(data);
       data.variantTitle = data.variant.title === 'Default Title' ? '' : data.variant.title;
+
+      const renderCustumAtrributesInCart = true;
+      
+      if(renderCustumAtrributesInCart){
+        const lineItems = this.lineItemCache || [];
+      
+        let recipeValue = '';
+        let lineValues = '';
+
+        for (var lineItem of lineItems) {
+          for (var attribute of lineItem.customAttributes) {
+            const lowercaseKey = attribute.key.toLowerCase();
+            if (lowercaseKey === 'recipe') {
+              recipeValue = attribute.value;
+            } else if (lowercaseKey.startsWith('line')) {
+              lineValues += "".concat(attribute.value, ", ");
+            }          
+          }
+        }
+
+        recipeValue = recipeValue + ': ' + lineValues;
+
+        data.variantTitle = recipeValue ? recipeValue : '';
+  
+      }
+
       return acc + this.childTemplate.render({data}, (output) => `<li id="${lineItem.id}" class=${this.classes.lineItem.lineItem}>${output}</li>`);
     }, '');
   }
