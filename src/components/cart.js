@@ -117,6 +117,30 @@ export default class Cart extends Component {
       data.text = this.config.lineItem.text;
       data.lineItemImage = this.imageForLineItem(data);
       data.variantTitle = data.variant.title === 'Default Title' ? '' : data.variant.title;
+
+      {
+        // This block overrides the existing variant title to show custom attributes.
+        const lineItems = this.lineItemCache || [];
+      
+        let customItemSubTitle = '';
+        let lineValues = '';
+
+        for (var attribute of lineItem.customAttributes) {
+          const lowercaseKey = attribute.key.toLowerCase();
+          if (lowercaseKey === 'recipe') {
+            customItemSubTitle = attribute.value;
+          } else if (lowercaseKey.startsWith('line')) {
+            lineValues += "".concat(attribute.value, ", ");
+          }          
+        }
+
+        if(lineValues.length > 0){
+          customItemSubTitle = customItemSubTitle + ': ' + lineValues;
+          data.variantTitle = customItemSubTitle;
+        }
+  
+      }
+
       return acc + this.childTemplate.render({data}, (output) => `<li id="${lineItem.id}" class=${this.classes.lineItem.lineItem}>${output}</li>`);
     }, '');
   }
