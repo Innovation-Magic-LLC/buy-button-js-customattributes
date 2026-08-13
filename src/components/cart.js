@@ -419,17 +419,18 @@ export default class Cart extends Component {
    * add variant to cart.
    * @param {Object} variant - variant object.
    * @param {Number} [quantity=1] - quantity to be added.
-   * @param {Number} customAttributes - customAttributes to be added as { key: "_someKey", value: "_someValue" }. 
+   * @param {Boolean} [openCart=true] - whether to open the cart after adding.
+   * @param {Array} [customAttributes] - customAttributes to be added as { key: "_someKey", value: "_someValue" }.
    */
-  addVariantToCart(variant, quantity = 1, customAttributes = [],  openCart = true) {
+  addVariantToCart(variant, quantity = 1, openCart = true, customAttributes = []) {
     if (quantity <= 0) {
       return null;
     }
     if (openCart) {
       this.open();
     }
-    const lineItem = {variantId: variant.id, quantity, customAttributes};
     if (this.model) {
+      const lineItem = {variantId: variant.id, quantity, customAttributes};
       return this.props.client.checkout.addLineItems(this.model.id, [lineItem]).then((checkout) => {
         this.model = checkout;
         this.updateCache(this.model.lineItems);
@@ -441,6 +442,10 @@ export default class Cart extends Component {
         return checkout;
       });
     } else {
+      // shopify-buy's InputMapper.create() (used by checkout.create()) does not rename
+      // customAttributes -> attributes per line item the way addLineItems' mapper does,
+      // so it must already be named "attributes" here to satisfy CartLineInput.
+      const lineItem = {variantId: variant.id, quantity, attributes: customAttributes};
       const input = {
         lineItems: [
           lineItem,

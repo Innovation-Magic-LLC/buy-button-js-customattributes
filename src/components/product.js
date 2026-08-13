@@ -653,7 +653,7 @@ export default class Product extends Component {
     } else if (this.options.buttonDestination === 'cart') {
       this.props.closeModal();
       this._userEvent('addVariantToCart');
-      this.props.tracker.trackMethod(this.cart.addVariantToCart.bind(this), 'Update Cart', this.selectedVariantTrackingInfo)(this.selectedVariant, this.selectedQuantity, this.customAttributes);
+      this.props.tracker.trackMethod(this.cart.addVariantToCart.bind(this), 'Update Cart', this.selectedVariantTrackingInfo)(this.selectedVariant, this.selectedQuantity, true, this.customAttributes);
       if (!this.modalProduct) {
         this.props.setActiveEl(target);
       }
@@ -679,7 +679,10 @@ export default class Product extends Component {
           {
             variantId: this.selectedVariant.id,
             quantity: this.selectedQuantity,
-            customAttributes: this.customAttributes,
+            // shopify-buy's InputMapper.create() (used by checkout.create()) does not rename
+            // customAttributes -> attributes per line item, so it must already be named
+            // "attributes" here to satisfy CartLineInput.
+            attributes: this.customAttributes,
           },
         ],
       };

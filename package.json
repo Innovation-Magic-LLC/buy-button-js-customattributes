@@ -1,6 +1,6 @@
 {
   "name": "@shopify/buy-button-js",
-  "version": "2.4.0",
+  "version": "3.0.5",
   "browserslist": [
     "last 2 Chrome versions",
     "last 2 Firefox versions",
@@ -15,7 +15,8 @@
   "repository": "git@github.com:Shopify/buy-button-js.git",
   "publishConfig": {
     "access": "public",
-    "@shopify:registry": "https://registry.npmjs.org/"
+    "@shopify:registry": "https://registry.npmjs.org/",
+    "provenance": true
   },
   "scripts": {
     "start": "rm -rf tmp && mkdir tmp && yarn run src:watch & yarn run styles:watch & yarn run serve",
@@ -68,6 +69,7 @@
     "@babel/plugin-transform-spread": "7.2.2",
     "@babel/plugin-transform-template-literals": "7.4.4",
     "@babel/plugin-transform-typeof-symbol": "7.2.0",
+    "@changesets/cli": "^2.28.1",
     "@shopify/js-uploader": "https://github.com/Shopify/js-uploader.git",
     "aws-sdk": "2.6.8",
     "babelify": "10.0.0",
@@ -93,8 +95,6 @@
     "testem": "2.17.0",
     "watch": "1.0.2",
     "watchify": "3.11.1",
-    "wdio-dot-reporter": "0.0.6",
-    "wdio-junit-reporter": "0.1.0",
     "webdriverio": "4.2.8",
     "whatwg-fetch": "3.0.0"
   },
@@ -103,11 +103,8 @@
     "browserify": "16.3.0",
     "morphdom": "2.6.1",
     "mustache": "3.0.1",
-    "sass": "1.54.3",
-    "shopify-buy": "2.20.0",
+    "sass": "1.69.0",
+    "shopify-buy": "3.0.7",
     "uglify-js": "3.16.3"
-  },
-  "resolutions": {
-    "fibers": "5.0.0"
   }
 }

@@ -117,11 +117,12 @@ describe('Iframe class', () => {
       assert.calledWith(setWidthStub, constructorConfig.width);
     });
 
-    it('sets width to 100%, overflow to hidden, and border to none in iframe\'s style', () => {
+    it('sets width to 100%, overflow to hidden, borderWidth to 0px and borderStyle to none in iframe\'s style', () => {
       iframe = new Iframe(parent, constructorConfig);
       assert.equal(iframe.el.style.width, '100%');
       assert.equal(iframe.el.style.overflow, 'hidden');
-      assert.include(iframe.el.style.border, 'none');
+      assert.include(iframe.el.style.borderStyle, 'none');
+      assert.include(iframe.el.style.borderWidth, '0px');
     });
 
     it('disables scrolling, allows transparency, and removes border in iframe\'s attributes', () => {
@@ -134,7 +135,19 @@ describe('Iframe class', () => {
     });
 
     it('sets element name to name in config', () => {
+      iframe = new Iframe(parent, constructorConfig);
       assert.equal(iframe.el.getAttribute('name'), constructorConfig.name);
+    });
+
+    it('sets title attribute when title is provided in config', () => {
+      constructorConfig.title = 'Add to cart';
+      iframe = new Iframe(parent, constructorConfig);
+      assert.equal(iframe.el.getAttribute('title'), 'Add to cart');
+    });
+
+    it('does not set title attribute when title is not provided in config', () => {
+      iframe = new Iframe(parent, constructorConfig);
+      assert.isNull(iframe.el.getAttribute('title'));
     });
 
     it('sets styleTag to null', () => {
